@@ -1,0 +1,44 @@
+
+.tableButton{
+    background-color: #0090a5;
+    color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 15px;
+    border-bottom-left-radius: 1000px;
+    border-bottom-right-radius: 1000px;
+    border-top-left-radius: 1000px;
+    border-top-right-radius: 1000px;
+  }
+  .button{
+    background-color: #0090a5;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family:monospace; */
+    color: black;
+    width: 230px;
+    height: 70px;
+    font-size: 20px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-right: 20%;
+    margin-top: 6%;
+    
+}
+:host >>> .ui-inputgroup .ui-inputgroup-addon {
+  background-color: #eceeef;
+} 
+
+:host >>>  .ui-inputgroup .ui-inputgroup-addon {
+  background-color: #eceeef;
+}
+
+body .ui-inputgroup .ui-inputgroup-addon {
+  background-color: #feb314;
+
+}
+
+.ui-inputgroup .ui-inputgroup-addon {
+  background-color: #feb314;
+}

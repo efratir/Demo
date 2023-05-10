@@ -1,0 +1,41 @@
+.contentsOfQuestion{
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    color: black;
+    font-size: 40px;
+    text-align: center; 
+    padding-top: 20%
+
+
+}
+
+
+.frm{
+    /* text-align: center;
+    width: 100%;
+    left: 50%;
+    position: absolute; */
+    position: absolute;
+    /* text-align: center; */
+     left: 30%;
+     top: 10%;
+     padding-top: 30%
+}
+
+
+:host >>>.ui-g-1, .ui-g-2, .ui-g-3, .ui-g-4, .ui-g-5, .ui-g-6, .ui-g-7, .ui-g-8, .ui-g-9, .ui-g-10, .ui-g-11, .ui-g-12{
+    padding: .5em;
+
+}
+.ui-g-1, .ui-g-2, .ui-g-3, .ui-g-4, .ui-g-5, .ui-g-6, .ui-g-7, .ui-g-8, .ui-g-9, .ui-g-10, .ui-g-11, .ui-g-12{
+    padding: .0em;
+
+}
+/* :host >>>div.ui-g-12 {
+    padding: .5em;
+}
+ div.ui-g-12 {
+    padding: .0em;
+} */
+:host >>>body{
+        line-height: 1.5;
+}

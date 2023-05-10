@@ -1,0 +1,67 @@
+<div dir="rtl" style="text-align: center">
+<h1>שאלון</h1><br><br>
+<label>שם שאלון</label>
+  <div class="ui-inputgroup" style="margin-right: 80px">
+    
+    <span class="ui-inputgroup-addon"><i class="fa fa-square-o"></i></span>
+    <input  required minlength="2" maxlength="9" type="text" pInputText placeholder="שם שאלון" [(ngModel)]="questionnaireName">         
+</div>
+<label>נושא</label><br>
+<select  name="" id="" [(ngModel)]="subjectCode" style="margin-right: 10px;width: 79px">
+  <option *ngFor="let subject of subjects" [value]="subject.subjectCode">{{subject.subjectName}}</option>
+</select><button pButton type="button"  label="הוסף נושא" (click)="showDialog()" ></button>
+<p-dialog header="הוספת נושא" [(visible)]="subjectDisplay" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+         [baseZIndex]="10000">
+         <div >
+            <label>נושא</label>
+            <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                    <input required minlength="2" maxlength="10" type="text" pInputText placeholder="נושא"  [(ngModel)]="myNewSubject.subjectName">
+            </div>    
+            </div>
+        <p-footer>
+            <button pButton type="button" label="אישור" class="ui-button-rounded ui-button-secondary" (click)="saveSubject()"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="userDisplay=false" label="ביטול" class="ui-button-secondary"></button>
+        </p-footer>
+</p-dialog>
+
+<!-- <div class="ui-inputgroup">
+ 
+  <span class="ui-inputgroup-addon"></span>
+  <input type="text" pInputText placeholder="נושא"  [(ngModel)]="SubjectNameCode"> <button  routerLink="/subject">הוסף נושא</button>        
+</div><br> -->
+<br><br>
+<label style="margin-right: 5%">מתאים מגיל</label>
+<label style="margin-right: 5%">מתאים עד גיל</label>
+<div class="ui-inputgroup" >
+  <label style="margin-right: 20%">
+  <span class="ui-inputgroup-addon"><i class="fa fa-child"></i></span>
+  <input required  min="1" max="120" type="number"   [(ngModel)]="MatchingFromAge">         
+</label>
+
+<label style="margin-right: 40px">
+  <span class="ui-inputgroup-addon"><i class="fa fa-male"></i></span>
+  <input required min="1" max="120" type="number"   [(ngModel)]="MatchingUntilAge">    </label>     
+</div><br>
+<label>האם אתה מעוניין לחשוף את השאלון ?</label>
+<p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox><br><br>
+<button  pButton type="button" label="הוספה"  (click)="saveQuestannaire()"></button> 
+
+
+
+ <p-dialog header="הוספת משתמש" [(visible)]="Display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+         [baseZIndex]="10000">
+         <div >
+          <h1>הוספת נושא</h1>
+        <label>נושא</label>
+        <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"></span>
+                <input pInputText type="text"  placeholder="נושא" [(ngModel)]="SubjectName">         
+        </div>
+        </div>
+        <p-footer>
+            <button pButton type="button" label="אישור" class="ui-button-rounded ui-button-secondary" (click)="saveSubject()"></button>
+        </p-footer>
+</p-dialog>
+</div>
+

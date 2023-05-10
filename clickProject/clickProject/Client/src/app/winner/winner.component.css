@@ -1,0 +1,10 @@
+.changeImage{
+    background-image: url('assets/images/winners.jpg');
+    background-repeat: no-repeat;
+}
+.winnerDiv{
+   /* margin-right: 25%; */
+   font-family: monospace;
+font-size: 25px;
+text-align: center;
+}

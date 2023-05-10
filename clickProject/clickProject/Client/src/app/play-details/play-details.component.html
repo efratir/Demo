@@ -1,0 +1,79 @@
+<div dir="rtl">
+    <div class="ui-inputgroup">
+        <button pButton type="button" routerLink="/" style="height: 30px;margin-right: 10%"><i class="fa fa-arrow-circle-right"
+                aria-hidden="true"></i></button>
+        <h3 style="padding-right: 20%">משחק</h3>
+    </div>
+    <label class="first">סיסמא</label><br>
+    <input pPassword type="password" required min="1" [(ngModel)]="PlayServ.saveHalfDetailse.userIdCreator" /> <button pButton
+        type="button" (click)="showDialog()" label="הוספת משתמש" ></button>
+    <br>
+    <label for="float-input"> שם משחק</label><br/>
+    <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-dribbble"></i></span>
+        <input placeholder="שם משחק" type="text" pInputText [(ngModel)]="PlayServ.saveHalfDetailse.nameOfPlay" required minlength="2"
+            maxlength="10" name="PlayServ.saveHalfDetailse.nameOfPlay" #n="ngModel" />
+    </div>
+
+    <label for="float-input"> שאלון</label><br/>
+    <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-square-o"></i></span>
+        <input placeholder=" שם שאלון" type="text" pInputText [(ngModel)]="PlayServ.saveHalfDetailse.questionnaireCode" disabled="disabled"
+        />
+        <button pButton type="button" (click)="toQuestions()" label="..."></button><button pButton type="button" (click)="toQuestannaire()"
+            label=" הוסף שאלון"> </button>
+    </div>
+
+    <label>תאריך</label>
+    <div style="position: absolute" class="ui-md-4" class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+        <p-calendar required [(ngModel)]="newPlay.DateOfPlay" showButtonBar="true"></p-calendar>
+
+     
+    </div> <br><br><br>
+    <!-- <div class="ui-inputgroup"> -->
+    <div style="position: absolute" class="ui-g-12 ui-md-4">
+        <label>שעת התחלת הצטרפות</label><label style="font-size: 10px"> יש להכניס שעה ב24 שעות*</label><br>
+        <!-- <span class="ui-inputgroup-addon"><i class="far fa-clock"></i></span> -->
+        <input required pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="_ _:_ _" class="without_ampm" pInputText [(ngModel)]="newPlay.HourOfstartJoiningToPlay"
+        />
+    </div>
+    <!-- </div> -->
+    <br><br><br>
+    <div style="position: absolute" class="ui-g-12 ui-md-4">
+        <label>שעת התחלת משחק</label><label style="font-size: 10px"> יש להכניס שעה ב24 שעות*</label><br>
+        <input required pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="_ _:_ _" pInputText [(ngModel)]="newPlay.HourOfstartPlay"
+        />
+    </div><br><br><br>
+    <div style="position: absolute;padding-bottom: 0" class="ui-g-12 ui-md-4">
+        <label>שעת סיום משחק</label><label style="font-size: 10px"> יש להכניס שעה ב24 שעות*</label><br>
+        <input required pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="_ _:_ _" pInputText [(ngModel)]="newPlay.HourOfEndPlay"
+        />
+    </div><br>
+    <button pButton type="button" label="הוספה" (click)="savePlay()" style="margin-right: 70%"></button>
+
+    <p-dialog header="הוספת משתמש" [(visible)]="userDisplay" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+    [baseZIndex]="10000">
+        <div>
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                <input required minlength="9" maxlength="9" type="text" pInputText placeholder="ת.ז." [(ngModel)]="userId">
+            </div>
+            <label>שם משתמש</label>
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                <input required minlength="2" maxlength="10" type="text" pInputText placeholder="שם משתמש" [(ngModel)]="userName">
+            </div>
+            <label class="first">סיסמא</label><br>
+            <input pPassword type="password" placeholder="סיסמא" [(ngModel)]="userPassword" /> <br><br>
+        </div>
+        <p-footer>
+            <button  pButton type="button" label="אישור" class="ui-button-rounded ui-button-secondary" (click)="saveUser()"></button>
+            <button  type="button" pButton icon="pi pi-close" (click)="userDisplay=false" label="ביטול" class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+
+
+    
+    <!-- <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button> -->
+</div>

@@ -1,0 +1,28 @@
+
+.tableButton{
+    background-color: #0090a5;
+    color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 15px;
+    border-bottom-left-radius: 1000px;
+    border-bottom-right-radius: 1000px;
+    border-top-left-radius: 1000px;
+    border-top-right-radius: 1000px;
+  }
+  :host >>> .ui-inputgroup .ui-inputgroup-addon {
+    background-color: #eceeef;
+} 
+
+:host >>>  .ui-inputgroup .ui-inputgroup-addon {
+    background-color: #eceeef;
+  }
+
+body .ui-inputgroup .ui-inputgroup-addon {
+    background-color: #feb314;
+
+}
+
+.ui-inputgroup .ui-inputgroup-addon {
+    background-color: #feb314;
+  }

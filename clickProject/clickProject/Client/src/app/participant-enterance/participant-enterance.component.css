@@ -1,0 +1,97 @@
+/* button{
+    background-color: deeppink;
+    color: black;
+} */
+@keyframes ui-progress-spinner-color {
+    100%,
+    0% {
+        stroke: deeppink;
+    }
+    40% {
+        stroke:#000057;
+    }
+    66% {
+        stroke: royalblue;
+    }
+    80%,
+    90% {
+        stroke: #ffa700;
+    }
+   
+}
+body{
+     /* display: flex; */
+     /* text-align: center;
+     width: 100%; */
+     /* left: 50%; */
+     /* position:absolute; */
+     /* text-align: left;
+     padding-right: 0%; */
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+   
+}
+.frm{
+    /* text-align: center;
+    width: 100%;
+    left: 50%;
+    position: absolute; */
+    position: absolute;
+    text-align: center;
+     left: 20%;
+     top: 20%;
+     padding-top: 30%
+}
+.green {
+    border: 3px double #00ff21;
+}
+
+.red {
+    border: 3px double #ff0000;
+}
+/* .ui-inputgroup .ui-inputtext:not(:first-child) {
+    
+    border-left: 1px solid rgba(0, 0, 0, 0.15)
+} */
+
+:host >>> .ui-inputgroup .ui-inputtext:not(:first-child) {
+    /* border-top-left-radius: 0;
+    border-bottom-left-radius: 0; */
+    border-left: 0 none;
+}
+/* .ui-inputgroup .ui-inputtext:not(:first-child) {
+    background: #ffffff;
+    padding: 0.5em 0.75em;
+    /* border: 1px solid rgba(0, 0, 0, 0.15); */
+    /* border: 1px solid ;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    border-radius: 0.25em; */
+   
+/* } */
+.ui-inputgroup .ui-inputtext:not(:first-child){
+border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: rgba(0, 0, 0, 0.15);
+    border-top-left-radius: 0.25em;
+    border-bottom-left-radius: 0.25em;
+    padding-left: 0.75em;
+}
+:host >>> .ui-inputgroup .ui-inputgroup-addon {
+    background-color: #eceeef;
+} 
+
+:host >>>  .ui-inputgroup .ui-inputgroup-addon {
+    background-color: #eceeef;
+  }
+
+body .ui-inputgroup .ui-inputgroup-addon {
+    background-color: #feb314;
+
+}
+
+.ui-inputgroup .ui-inputgroup-addon {
+    background-color: #feb314;
+  }

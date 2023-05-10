@@ -1,0 +1,45 @@
+
+  <br> <br> <br> 
+  <button pButton type="button" label="צפיה במנצחים" (click)="getWinners()" style="margin-right: 32%"  ></button>
+  <div *ngIf="!show" style="text-align: center"   >
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-danger" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-warning" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-light" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-dark" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      </div>
+  <div *ngIf="show"  class="winnerDiv" dir="rtl">
+  <h2>המנצחים</h2>
+ 
+
+  <div *ngFor="let a of question ; index as i"  name="questions"  >
+    שאלה מספר:{{i+1}}
+    <div *ngFor="let b of a.winers" name="winner" >
+      {{b.id}}
+      {{b.name}}
+      </div>
+</div>
+<h1>&nbsp;מנצח סופי:</h1>
+   <div  *ngFor="let p of endWinners" >{{p}}</div>
+</div>
+
+

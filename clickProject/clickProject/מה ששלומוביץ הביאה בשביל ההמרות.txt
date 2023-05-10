@@ -1,0 +1,6 @@
+אתן צריכות להתקין automapper מ - nuget
+Mapper.Initialize(cfg => {
+                cfg.CreateMap<User , UserDto >();
+                
+            });
+            var userDto = Mapper.Map<User, UserDto>(user);

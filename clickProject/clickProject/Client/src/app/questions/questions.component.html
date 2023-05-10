@@ -1,0 +1,86 @@
+<h3 style="margin-right: 30%">שאלונים</h3>
+<label style="margin-right: 30%">
+ <button pButton type="button"  (click)="getNextQuestionnaire()"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
+ <button  pButton type="button" [disabled]="flag" (click)="getLastQuestionnaire()"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+ 
+</label>
+ 
+ <br>
+ <br>
+ <div dir="rtl" style="margin-right: 20%">
+  
+ <h5 style="margin-right:10%">שם שאלון</h5>
+<input  [(ngModel)]="currentQN">
+
+</div>
+<br>
+<div> 
+     <p-scrollPanel [style]="{width: '99.9%', height: '200px',opacity: '0.7'}" >
+<p-dataView [value]="currentQuestion"  [rows]="20" paginatorPosition="both" filterBy="brand"
+[sortField]="sortField" [sortOrder]="sortOrder" dir="rtl">
+
+<ng-template let-Question pTemplate="listItem">
+        
+  <div class="ui-g" style="padding: 0.2em;border-bottom: 1px solid #d9d9d9">        
+        <div dir="rtl" class="ui-g-12 ui-md-8 car-details"> 
+            <div class="ui-g">    
+                <div class="ui-g-2 ui-sm-6">שאלה:  {{Question.contentsOfQuestion}} </div>
+                <label style="margin-right: 10%" >
+                <button pButton type="button" class="tableButton" (click)="selectQuestion($event,Question)" >עדכון</button>
+                <button pButton type="button" class="tableButton" (click)="deleteQuestion(Question.questionCode)" >מחיקה</button>
+            </label>
+            </div>
+        </div> 
+       
+      
+           
+        
+    </div>
+</ng-template>
+</p-dataView>
+</p-scrollPanel>
+</div>
+<label style="margin-right: 10%">
+<button   pButton type="button" label="הוספת שאלה" routerLink="/question/{{currentQC}}" ><i class="fa fa-plus-square"></i>	</button>
+<Button  pButton type="button" label="אישור בחירת שאלון" (click)="selectQuestionnaire()" ><i class="fa fa-check-square"></i> </Button><br><br>
+<button  pButton type="button" label="מחיקת השאלון" (click)="deleteQuestionnaire(currentQC)"></button></label>
+<p-dialog header="פרטי השאלה" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width:'40px'}"  (onAfterHide)="onDialogHide()">
+    <div class="ui-g" *ngIf="selectedQuestion">
+        <div >
+            <label>טקסט</label>
+              <div class="ui-inputgroup">     
+                <span class="ui-inputgroup-addon"><i class="fa fa-question"></i></span>
+                <input required minlength="2" maxlength="10" type="text" pInputText placeholder="טקסט" value="{{selectedQuestion.contentsOfQuestion}}" [(ngModel)]="selectedQuestion.contentsOfQuestion" >         
+            </div>
+            <label>תשובה נכונה</label>
+              <div class="ui-inputgroup">  
+                <span class="ui-inputgroup-addon"><i class="fa fa-check-square-o"></i></span>
+                <input required minlength="2" maxlength="10"  type="text" pInputText placeholder="תשובה נכונה"value="{{selectedQuestion.trueAnswer}}" [(ngModel)]="selectedQuestion.trueAnswer">         
+            </div>
+            <label>תשובה שגויה1</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-close"></i></span>
+                <input required minlength="2" maxlength="10" type="text" pInputText placeholder="תשובה שגויה1" value="{{selectedQuestion.falseAnswer1}}" [(ngModel)]="selectedQuestion.falseAnswer1">         
+            </div>
+            <label>תשובה שגויה2</label>
+              <div class="ui-inputgroup">   
+                <span class="ui-inputgroup-addon"><i class="fa fa-close"></i></span>
+                <input required minlength="2" maxlength="10" type="text" pInputText placeholder="תשובה שגויה2 הוסף" value="{{selectedQuestion.falseAnswer2}}" [(ngModel)]="selectedQuestion.falseAnswer2">         
+            </div>
+            <label>תשובה שגויה3</label>
+              <div class="ui-inputgroup">
+                
+                <span class="ui-inputgroup-addon"><i class="fa fa-close"></i></span>
+                <input required minlength="2" maxlength="10" type="text" pInputText placeholder=" הוסף תשובה שגויה3" value="{{selectedQuestion.falseAnswer3}}" [(ngModel)]="selectedQuestion.falseAnswer3">         
+            </div>
+            <label>ניקוד לשאלה</label><br>
+            <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-diamond"></i></span>
+            <input required minlength="2" maxlength="10" type="number" min="1" [(ngModel)]="selectedQuestion.pointAnswer"><br></div>
+    </div>
+    </div>
+    <button pButton type="button" label="עדכון" (click)="putQuestion(selectedQuestion)" style="margin-top:0" class="tableButton"></button>
+    </p-dialog>
+
+
+  

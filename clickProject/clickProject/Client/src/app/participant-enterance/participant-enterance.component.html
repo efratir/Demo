@@ -1,0 +1,51 @@
+ <form novalidate [formGroup]="myForm" >
+       
+<div  class="frm"   >
+        <div class="ui-inputgroup" style="margin-top: 20%">
+                <h4>פרטי משתתף</h4>
+              <button pButton type="button" routerLink="/" style="height: 30px;margin-left: 20%"><i class="fa fa-arrow-circle-right"
+                      aria-hidden="true"></i></button>   
+            </div>
+
+<label>בחירת משחק</label><br>
+<div style="width: 100%">
+<select style="width: 100%" name="" id="" formControlName="playCode" (change)="playSelected($event.target.value)">
+    <option *ngFor="let play of plays" [value]="play.playCode" dir="rtl">{{play.nameOfPlay}}</option>
+</select></div>
+<label>ת.ז.</label>
+<div class="ui-inputgroup" >
+         <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+         <input formControlName="tz" type="text" pInputText placeholder="ת.ז." [ngClass]="{'green':myForm.controls.tz.valid && myForm.controls.tz.dirty,
+         'red':myForm.controls.tz.invalid && myForm.controls.tz.dirty}"/>  
+</div>
+<label>שם</label>
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+     <input formControlName="name" type="text" pInputText placeholder="שם" [(ngModel)]="userName" [ngClass]="{'green':myForm.controls.name.valid && myForm.controls.name.dirty,
+     'red':myForm.controls.name.invalid && myForm.controls.name.dirty}"/> 
+</div>
+ 
+
+
+ <label>תאריך לידה</label> 
+ 
+ <div class="ui-inputgroup" >
+ 
+    <span class="ui-inputgroup-addon"> <i class="fa fa-birthday-cake"></i></span>
+    <p-calendar formControlName="ParticipantDate" [(ngModel)]="ParticipantDateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030" pInputText placeholder="תאריך לידה"></p-calendar>
+    
+</div>
+<label>קוד</label>
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+     <input formControlName="Code" type="text"  placeholder="קוד" [(ngModel)]="key" [ngClass]="{'green':myForm.controls.Code.valid && myForm.controls.Code.dirty,
+     'red':myForm.controls.Code.invalid && myForm.controls.Code.dirty}"/> 
+</div>
+<br>
+<button pButton type="button" label="הוספה" class="ui-button-rounded ui-button-secondary" (click)="saveParticipant()"></button><br>
+<p-progressSpinner  *ngIf="flagSpinner"  ></p-progressSpinner>
+<br>
+<button pButton type="button" label="התחל   {{item.nameOfPlay}} " *ngFor="let item of playsCanBegin; index as i;" value="item.playCode" (click)="getPlay(item)" formControlName="CodeBegin"></button>
+
+</div>
+

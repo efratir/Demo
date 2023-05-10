@@ -1,0 +1,21 @@
+
+
+    
+<div class="frm" dir="rtl">
+        <div class="contentsOfQuestion" >
+               {{currentQuestion.contentsOfQuestion}}
+        </div>
+    <div class="ui-g-8">
+      <div class="ui-g radiobuttons"> 
+          <div class="ui-g" style="width:260px;font-size: 22px">
+           <p-radioButton  name="group1" value="falseAnswer4" label="{{currentQuestion.falseAnswer4}}" [(ngModel)]="selectAnswer" ></p-radioButton>
+           <p-radioButton name="group1" value="falseAnswer1" label="{{currentQuestion.falseAnswer1}}" [(ngModel)]="selectAnswer"></p-radioButton>
+            <p-radioButton name="group1" value="falseAnswer2" label="{{currentQuestion.falseAnswer2}}" [(ngModel)]="selectAnswer"></p-radioButton>
+            <p-radioButton name="group1" value="falseAnswer3" label="{{currentQuestion.falseAnswer3}}" [(ngModel)]="selectAnswer"></p-radioButton>
+        </div>
+    
+    </div>
+        <button pButton type="button" label="שאלה הבאה" class="ui-button-rounded ui-button-info" (click)="nextQuestion()"></button><br>
+        <!-- Selected Value = {{selectAnswer||'none'}} -->
+</div>
+</div>

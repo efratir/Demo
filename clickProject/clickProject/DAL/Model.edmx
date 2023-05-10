@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="clickProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="participantTable">
+          <Key>
+            <PropertyRef Name="participantId" />
+            <PropertyRef Name="playCode" />
+            <PropertyRef Name="questoinCode" />
+          </Key>
+          <Property Name="participantId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="playCode" Type="int" Nullable="false" />
+          <Property Name="questoinCode" Type="int" Nullable="false" />
+          <Property Name="trueOrFalseAnswer" Type="bit" Nullable="false" />
+          <Property Name="timeOfRespond" Type="int" />
+        </EntityType>
+        <EntityType Name="playTable">
+          <Key>
+            <PropertyRef Name="playCode" />
+          </Key>
+          <Property Name="playCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionnaireCode" Type="int" Nullable="false" />
+          <Property Name="dateOfPlay" Type="date" Nullable="false" />
+          <Property Name="hourOfstartJoiningToPlay" Type="time" Precision="7" Nullable="false" />
+          <Property Name="hourOfstartPlay" Type="time" Precision="7" Nullable="false" />
+          <Property Name="hourOfEndPlay" Type="time" Precision="7" Nullable="false" />
+          <Property Name="userIdCreator" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nameOfPlay" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionnaireTable">
+          <Key>
+            <PropertyRef Name="questionnaireCode" />
+          </Key>
+          <Property Name="questionnaireCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjectNameCode" Type="int" Nullable="false" />
+          <Property Name="matchingFromAge" Type="int" Nullable="false" />
+          <Property Name="matchingUntilAge" Type="int" Nullable="false" />
+          <Property Name="questionnaireName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionTable">
+          <Key>
+            <PropertyRef Name="questionCode" />
+          </Key>
+          <Property Name="questionCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionnaireCode" Type="int" Nullable="false" />
+          <Property Name="contentsOfQuestion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="trueAnswer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="falseAnswer1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="falseAnswer2" Type="nvarchar" MaxLength="50" />
+          <Property Name="falseAnswer3" Type="nvarchar" MaxLength="50" />
+          <Property Name="pointAnswer" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="subjectTable">
+          <Key>
+            <PropertyRef Name="subjectCode" />
+          </Key>
+          <Property Name="subjectCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userTable">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userName" Type="nchar" MaxLength="10" />
+          <Property Name="password" Type="nchar" MaxLength="10" />
+          <Property Name="participantDateOfBirth" Type="date" />
+        </EntityType>
+        <Association Name="FK_participantTable_playTable">
+          <End Role="playTable" Type="Self.playTable" Multiplicity="1" />
+          <End Role="participantTable" Type="Self.participantTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playTable">
+              <PropertyRef Name="playCode" />
+            </Principal>
+            <Dependent Role="participantTable">
+              <PropertyRef Name="playCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_participantTable_userTable">
+          <End Role="userTable" Type="Self.userTable" Multiplicity="1" />
+          <End Role="participantTable" Type="Self.participantTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTable">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="participantTable">
+              <PropertyRef Name="participantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playTable_questionnaireTable">
+          <End Role="questionnaireTable" Type="Self.questionnaireTable" Multiplicity="1" />
+          <End Role="playTable" Type="Self.playTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Principal>
+            <Dependent Role="playTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playTable_userTable">
+          <End Role="userTable" Type="Self.userTable" Multiplicity="1" />
+          <End Role="playTable" Type="Self.playTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTable">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="playTable">
+              <PropertyRef Name="userIdCreator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireTable_subjectTable">
+          <End Role="subjectTable" Type="Self.subjectTable" Multiplicity="1" />
+          <End Role="questionnaireTable" Type="Self.questionnaireTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjectTable">
+              <PropertyRef Name="subjectCode" />
+            </Principal>
+            <Dependent Role="questionnaireTable">
+              <PropertyRef Name="subjectNameCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionTable_questionnaireTable">
+          <End Role="questionnaireTable" Type="Self.questionnaireTable" Multiplicity="1" />
+          <End Role="questionTable" Type="Self.questionTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Principal>
+            <Dependent Role="questionTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="clickProjectModelStoreContainer">
+          <EntitySet Name="participantTable" EntityType="Self.participantTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="playTable" EntityType="Self.playTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionnaireTable" EntityType="Self.questionnaireTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionTable" EntityType="Self.questionTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subjectTable" EntityType="Self.subjectTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userTable" EntityType="Self.userTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_participantTable_playTable" Association="Self.FK_participantTable_playTable">
+            <End Role="playTable" EntitySet="playTable" />
+            <End Role="participantTable" EntitySet="participantTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_participantTable_userTable" Association="Self.FK_participantTable_userTable">
+            <End Role="userTable" EntitySet="userTable" />
+            <End Role="participantTable" EntitySet="participantTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playTable_questionnaireTable" Association="Self.FK_playTable_questionnaireTable">
+            <End Role="questionnaireTable" EntitySet="questionnaireTable" />
+            <End Role="playTable" EntitySet="playTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playTable_userTable" Association="Self.FK_playTable_userTable">
+            <End Role="userTable" EntitySet="userTable" />
+            <End Role="playTable" EntitySet="playTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireTable_subjectTable" Association="Self.FK_questionnaireTable_subjectTable">
+            <End Role="subjectTable" EntitySet="subjectTable" />
+            <End Role="questionnaireTable" EntitySet="questionnaireTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionTable_questionnaireTable" Association="Self.FK_questionTable_questionnaireTable">
+            <End Role="questionnaireTable" EntitySet="questionnaireTable" />
+            <End Role="questionTable" EntitySet="questionTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="clickProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="participantTable" EntityType="clickProjectModel.participantTable" />
+          <EntitySet Name="playTable" EntityType="clickProjectModel.playTable" />
+          <EntitySet Name="questionnaireTable" EntityType="clickProjectModel.questionnaireTable" />
+          <EntitySet Name="subjectTable" EntityType="clickProjectModel.subjectTable" />
+          <EntitySet Name="userTable" EntityType="clickProjectModel.userTable" />
+          <AssociationSet Name="FK_participantTable_playTable" Association="clickProjectModel.FK_participantTable_playTable">
+            <End Role="playTable" EntitySet="playTable" />
+            <End Role="participantTable" EntitySet="participantTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_participantTable_userTable" Association="clickProjectModel.FK_participantTable_userTable">
+            <End Role="userTable" EntitySet="userTable" />
+            <End Role="participantTable" EntitySet="participantTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playTable_questionnaireTable" Association="clickProjectModel.FK_playTable_questionnaireTable">
+            <End Role="questionnaireTable" EntitySet="questionnaireTable" />
+            <End Role="playTable" EntitySet="playTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_playTable_userTable" Association="clickProjectModel.FK_playTable_userTable">
+            <End Role="userTable" EntitySet="userTable" />
+            <End Role="playTable" EntitySet="playTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireTable_subjectTable" Association="clickProjectModel.FK_questionnaireTable_subjectTable">
+            <End Role="subjectTable" EntitySet="subjectTable" />
+            <End Role="questionnaireTable" EntitySet="questionnaireTable" />
+          </AssociationSet>
+          <EntitySet Name="questionTable" EntityType="clickProjectModel.questionTable" />
+          <AssociationSet Name="FK_questionTable_questionnaireTable" Association="clickProjectModel.FK_questionTable_questionnaireTable">
+            <End Role="questionnaireTable" EntitySet="questionnaireTable" />
+            <End Role="questionTable" EntitySet="questionTable" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="participantTable">
+          <Key>
+            <PropertyRef Name="participantId" />
+            <PropertyRef Name="playCode" />
+            <PropertyRef Name="questoinCode" />
+          </Key>
+          <Property Name="participantId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="playCode" Type="Int32" Nullable="false" />
+          <Property Name="questoinCode" Type="Int32" Nullable="false" />
+          <Property Name="trueOrFalseAnswer" Type="Boolean" Nullable="false" />
+          <Property Name="timeOfRespond" Type="Int32" />
+          <NavigationProperty Name="playTable" Relationship="clickProjectModel.FK_participantTable_playTable" FromRole="participantTable" ToRole="playTable" />
+          <NavigationProperty Name="userTable" Relationship="clickProjectModel.FK_participantTable_userTable" FromRole="participantTable" ToRole="userTable" />
+        </EntityType>
+        <EntityType Name="playTable">
+          <Key>
+            <PropertyRef Name="playCode" />
+          </Key>
+          <Property Name="playCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionnaireCode" Type="Int32" Nullable="false" />
+          <Property Name="dateOfPlay" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hourOfstartJoiningToPlay" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="hourOfstartPlay" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="hourOfEndPlay" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="userIdCreator" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameOfPlay" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="participantTable" Relationship="clickProjectModel.FK_participantTable_playTable" FromRole="playTable" ToRole="participantTable" />
+          <NavigationProperty Name="questionnaireTable" Relationship="clickProjectModel.FK_playTable_questionnaireTable" FromRole="playTable" ToRole="questionnaireTable" />
+          <NavigationProperty Name="userTable" Relationship="clickProjectModel.FK_playTable_userTable" FromRole="playTable" ToRole="userTable" />
+        </EntityType>
+        <EntityType Name="questionnaireTable">
+          <Key>
+            <PropertyRef Name="questionnaireCode" />
+          </Key>
+          <Property Name="questionnaireCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjectNameCode" Type="Int32" Nullable="false" />
+          <Property Name="matchingFromAge" Type="Int32" Nullable="false" />
+          <Property Name="matchingUntilAge" Type="Int32" Nullable="false" />
+          <Property Name="questionnaireName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="playTable" Relationship="clickProjectModel.FK_playTable_questionnaireTable" FromRole="questionnaireTable" ToRole="playTable" />
+          <NavigationProperty Name="subjectTable" Relationship="clickProjectModel.FK_questionnaireTable_subjectTable" FromRole="questionnaireTable" ToRole="subjectTable" />
+          <NavigationProperty Name="questionTable" Relationship="clickProjectModel.FK_questionTable_questionnaireTable" FromRole="questionnaireTable" ToRole="questionTable" />
+        </EntityType>
+        <EntityType Name="subjectTable">
+          <Key>
+            <PropertyRef Name="subjectCode" />
+          </Key>
+          <Property Name="subjectCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="questionnaireTable" Relationship="clickProjectModel.FK_questionnaireTable_subjectTable" FromRole="subjectTable" ToRole="questionnaireTable" />
+        </EntityType>
+        <EntityType Name="userTable">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="participantDateOfBirth" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="participantTable" Relationship="clickProjectModel.FK_participantTable_userTable" FromRole="userTable" ToRole="participantTable" />
+          <NavigationProperty Name="playTable" Relationship="clickProjectModel.FK_playTable_userTable" FromRole="userTable" ToRole="playTable" />
+        </EntityType>
+        <Association Name="FK_participantTable_playTable">
+          <End Type="clickProjectModel.playTable" Role="playTable" Multiplicity="1" />
+          <End Type="clickProjectModel.participantTable" Role="participantTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="playTable">
+              <PropertyRef Name="playCode" />
+            </Principal>
+            <Dependent Role="participantTable">
+              <PropertyRef Name="playCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_participantTable_userTable">
+          <End Type="clickProjectModel.userTable" Role="userTable" Multiplicity="1" />
+          <End Type="clickProjectModel.participantTable" Role="participantTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTable">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="participantTable">
+              <PropertyRef Name="participantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playTable_questionnaireTable">
+          <End Type="clickProjectModel.questionnaireTable" Role="questionnaireTable" Multiplicity="1" />
+          <End Type="clickProjectModel.playTable" Role="playTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Principal>
+            <Dependent Role="playTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_playTable_userTable">
+          <End Type="clickProjectModel.userTable" Role="userTable" Multiplicity="1" />
+          <End Type="clickProjectModel.playTable" Role="playTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userTable">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="playTable">
+              <PropertyRef Name="userIdCreator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireTable_subjectTable">
+          <End Type="clickProjectModel.subjectTable" Role="subjectTable" Multiplicity="1" />
+          <End Type="clickProjectModel.questionnaireTable" Role="questionnaireTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjectTable">
+              <PropertyRef Name="subjectCode" />
+            </Principal>
+            <Dependent Role="questionnaireTable">
+              <PropertyRef Name="subjectNameCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="questionTable">
+          <Key>
+            <PropertyRef Name="questionCode" />
+          </Key>
+          <Property Name="questionCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionnaireCode" Type="Int32" Nullable="false" />
+          <Property Name="contentsOfQuestion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="trueAnswer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="falseAnswer1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="falseAnswer2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="falseAnswer3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pointAnswer" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="questionnaireTable" Relationship="clickProjectModel.FK_questionTable_questionnaireTable" FromRole="questionTable" ToRole="questionnaireTable" />
+        </EntityType>
+        <Association Name="FK_questionTable_questionnaireTable">
+          <End Type="clickProjectModel.questionnaireTable" Role="questionnaireTable" Multiplicity="1" />
+          <End Type="clickProjectModel.questionTable" Role="questionTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Principal>
+            <Dependent Role="questionTable">
+              <PropertyRef Name="questionnaireCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="clickProjectModelStoreContainer" CdmEntityContainer="DBContext">
+          <EntitySetMapping Name="participantTable">
+            <EntityTypeMapping TypeName="clickProjectModel.participantTable">
+              <MappingFragment StoreEntitySet="participantTable">
+                <ScalarProperty Name="timeOfRespond" ColumnName="timeOfRespond" />
+                <ScalarProperty Name="trueOrFalseAnswer" ColumnName="trueOrFalseAnswer" />
+                <ScalarProperty Name="questoinCode" ColumnName="questoinCode" />
+                <ScalarProperty Name="playCode" ColumnName="playCode" />
+                <ScalarProperty Name="participantId" ColumnName="participantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playTable">
+            <EntityTypeMapping TypeName="clickProjectModel.playTable">
+              <MappingFragment StoreEntitySet="playTable">
+                <ScalarProperty Name="nameOfPlay" ColumnName="nameOfPlay" />
+                <ScalarProperty Name="userIdCreator" ColumnName="userIdCreator" />
+                <ScalarProperty Name="hourOfEndPlay" ColumnName="hourOfEndPlay" />
+                <ScalarProperty Name="hourOfstartPlay" ColumnName="hourOfstartPlay" />
+                <ScalarProperty Name="hourOfstartJoiningToPlay" ColumnName="hourOfstartJoiningToPlay" />
+                <ScalarProperty Name="dateOfPlay" ColumnName="dateOfPlay" />
+                <ScalarProperty Name="questionnaireCode" ColumnName="questionnaireCode" />
+                <ScalarProperty Name="playCode" ColumnName="playCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionnaireTable">
+            <EntityTypeMapping TypeName="clickProjectModel.questionnaireTable">
+              <MappingFragment StoreEntitySet="questionnaireTable">
+                <ScalarProperty Name="questionnaireName" ColumnName="questionnaireName" />
+                <ScalarProperty Name="matchingUntilAge" ColumnName="matchingUntilAge" />
+                <ScalarProperty Name="matchingFromAge" ColumnName="matchingFromAge" />
+                <ScalarProperty Name="subjectNameCode" ColumnName="subjectNameCode" />
+                <ScalarProperty Name="questionnaireCode" ColumnName="questionnaireCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjectTable">
+            <EntityTypeMapping TypeName="clickProjectModel.subjectTable">
+              <MappingFragment StoreEntitySet="subjectTable">
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="subjectCode" ColumnName="subjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userTable">
+            <EntityTypeMapping TypeName="clickProjectModel.userTable">
+              <MappingFragment StoreEntitySet="userTable">
+                <ScalarProperty Name="participantDateOfBirth" ColumnName="participantDateOfBirth" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionTable">
+            <EntityTypeMapping TypeName="clickProjectModel.questionTable">
+              <MappingFragment StoreEntitySet="questionTable">
+                <ScalarProperty Name="pointAnswer" ColumnName="pointAnswer" />
+                <ScalarProperty Name="falseAnswer3" ColumnName="falseAnswer3" />
+                <ScalarProperty Name="falseAnswer2" ColumnName="falseAnswer2" />
+                <ScalarProperty Name="falseAnswer1" ColumnName="falseAnswer1" />
+                <ScalarProperty Name="trueAnswer" ColumnName="trueAnswer" />
+                <ScalarProperty Name="contentsOfQuestion" ColumnName="contentsOfQuestion" />
+                <ScalarProperty Name="questionnaireCode" ColumnName="questionnaireCode" />
+                <ScalarProperty Name="questionCode" ColumnName="questionCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

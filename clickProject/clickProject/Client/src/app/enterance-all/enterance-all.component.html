@@ -1,0 +1,116 @@
+<!-- <div  style="width: 100%;height: 100%;" class="background" > -->
+ 
+    <div >
+       
+    <!-- padding-right: 30%; -->
+  <button  routerLink="/participantEnterance" class="button">כניסה למשחק</button><br><br>
+<p-scrollPanel [style]="{width: '99.9%', height: '330px'}" >
+<p-dataView  #dv [value]="plays"  [rows]="20" paginatorPosition="both" filterBy="nameOfPlay"
+[sortField]="sortField" [sortOrder]="sortOrder" dir="rtl" >
+<p-header  >
+
+    <div class="ui-helper-clearfix"  >
+        <div class="ui-g">
+            <!-- <div class="ui-g-12 ui-md-4">
+                 <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'740px'}"></p-dropdown> 
+            </div> -->
+            <div class="ui-g-6 ui-md-4 filter-container">
+                <div style="position:relative">
+                    <input   style="margin-right: 18px" type="search" pInputText placeholder="Search by name" (keyup)="dv.filter($event.target.value)">
+                </div>
+            </div>
+            <div class="ui-g-6 ui-md-4" style="text-align:left" style="padding-right: 60px">
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+        </div>
+    </div>
+   
+</p-header>
+
+<ng-template let-play pTemplate="listItem" >    
+    <div dir="rtl" style="padding: 6%;border-bottom: 1px solid #c4116d">  
+       <!-- <div  >  -->
+                 <label >שם משחק:&nbsp;&nbsp;&nbsp;&nbsp;{{play.nameOfPlay}}</label> 
+                  <label style="margin-right: 80px;">
+                 <button pButton type="button"  (click)="selectPlay($event,play)" class="tableButton" >עדכון</button> 
+                 <button pButton type="button"  (click)="deletePlay(play)" class="tableButton"  >מחיקה</button>
+                </label></div>    
+    <!-- </div> -->
+</ng-template>
+
+
+
+
+
+<ng-template let-play pTemplate="gridItem" style="border-bottom-width: 30pt;border-bottom-color: #c4116d">
+    <!-- <div  class="ui-g-12 ui-md-3" style="padding:0%"> -->
+        <p-panel  header="שם משחק:" [style]="{'width':'110px','border-color':'#e40ba3','margin-right':'27px'}">
+            {{play.nameOfPlay}}
+            <hr class="ui-widget-content" style="border-top:0;border: 1px dashed  #c4116d" >
+            <button pButton type="button"  (click)="selectPlay($event, play)" style="margin-top:0;" class="tableButton">עדכון</button>
+            <button pButton type="button" (click)="deletePlay(play.playCode)" class="tableButton" style="margin-top: 20px;">מחיקה</button>
+            
+        </p-panel>
+    <!-- </div> -->
+</ng-template>
+
+</p-dataView>
+</p-scrollPanel>
+
+
+
+ <p-dialog header="פרטי המשחק" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" (onAfterHide)="onDialogHide()">
+<div class="ui-g" *ngIf="selectedPlay" style="width: 320px;  position: relative;" dir="rtl" >  
+        <div [style.visibility]="isDivVisible ? 'hidden' : 'visible'">
+                <div  >סיסמא: </div>
+                <input pInputText  required  pPassword type="password" [(ngModel)]="CheckUserPassword" value="{{CheckUserPassword}}">
+                <p-footer>
+                        <button  pButton type="button"  (click)="beforePutPlay()" label="אישור"></button>
+                </p-footer>
+        </div>
+    <div dir="rtl" [style.visibility]="isDivVisible ? 'visible' : 'hidden'"  style="width: 99.9%">
+    
+    <label> שם משחק:</label><br>
+    <input pInputText required minlength="2" maxlength="15"  value="{{selectedPlay.nameOfPlay}}"  [(ngModel)]="selectedPlay.nameOfPlay"  > <br>
+   
+    <label>תאריך</label><br>
+    <!-- <input pInputText required type="text" datetime="yyyy-MM-dd"  value="{{selectedPlay.dateOfPlay | date: 'dd/MM/yyyy'}}" [(ngModel)]="selectedPlay.dateOfPlay"> <br> -->
+    <!-- <input pInputText required  value="{{selectedPlay.dateOfPlay | date: 'dd/MM/yyyy'}}"> <br> -->
+    <input pInputText required  [ngModel]="selectedPlay.dateOfPlay.slice(0,10)"  (ngModelChange)="selectedPlay.dateOfPlay = $event" > <br>
+   <label >שעת התחלת הצטרפות למשחק: </label><br>
+   <input pInputText required  pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"  value="{{selectedPlay.hourOfstartJoiningToPlay}}" [(ngModel)]="selectedPlay.hourOfstartJoiningToPlay"/><br>
+     <label  >שעת התחלת המשחק: </label><br>
+    <input pInputText required  pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"  value="{{selectedPlay.hourOfstartPlay}}" [(ngModel)]="selectedPlay.hourOfstartPlay"><br>
+     <label  >שעת סיום המשחק:</label><br>
+    <input pInputText  required  pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="{{selectedPlay.hourOfEndPlay}}" [(ngModel)]="selectedPlay.hourOfEndPlay"><br> 
+  
+
+
+    <label  > קוד משחק: </label><br>
+    <input pInputText  required value="{{selectedPlay.playCode}}" [(ngModel)]="selectedPlay.playCode"><br>
+    <label  > קוד שאלון: </label><br>
+    <div class="ui-inputgroup" style="width: 100%" >
+ 
+    <input  pInputText required value="{{selectedPlay.questionnaireCode}}" [(ngModel)]="selectedPlay.questionnaireCode"><button pButton type="button" label="עדכון השאלון" (click)="toQuestionnaire()"></button></div>
+    <!-- <button routerLink="/questions">בחירת שאלון אחר</button><button routerLink="/questannaire">הוסף שאלון</button> -->
+   
+  
+</div>
+
+</div>
+<p-footer>
+        <button pButton type="button"  (click)="putPlay(selectedPlay)" style="margin-top:0;margin-right: 40%" label="עדכון"></button>
+      </p-footer>
+</p-dialog> 
+<!-- <div class="imag">
+    </div> -->
+
+
+    <br>
+<button routerLink="/playDetails" class="button" style="height:50px;">יצירת קליק חדש</button> 
+<!-- <img src="assets\images\back.jpg" alt="" style="width: 100%"> -->
+<div style="background-image:url('..\..\assets\images\back.jpg')"></div>
+</div>  
+
+
+ <!-- </div>  -->

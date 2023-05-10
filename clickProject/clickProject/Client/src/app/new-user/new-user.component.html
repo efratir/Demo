@@ -1,0 +1,15 @@
+<div  style="padding-top: 100pt;padding-right: 30%;">
+<h1>הוספת משתמש</h1>
+<label>שם משתמש</label>
+<div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <!-- <input type="text" pInputText placeholder="שם משתמש" formControlName="name"> -->
+        <input type="text" pInputText placeholder="שם משתמש"  [(ngModel)]="userName">
+
+</div>
+
+
+<label class="first">סיסמא</label><br>
+<input pPassword type="password" placeholder="סיסמא" [(ngModel)]="userPassword"/> <br><br>
+<button pButton type="button" label="אישור" class="ui-button-rounded ui-button-secondary" (click)="saveUser()"></button>
+</div>

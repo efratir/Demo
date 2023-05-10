@@ -1,0 +1,44 @@
+<div dir="rtl">
+<h1 style="padding-right: 30%">שאלה</h1>
+<div style="padding-right: 20%">
+<label>טקסט</label>
+  <div class="ui-inputgroup">
+    
+    <span class="ui-inputgroup-addon"><i class="fa fa-question"></i></span>
+    <input required minlength="2" type="text" pInputText placeholder="טקסט" [(ngModel)]="myQuestion.contentsOfQuestion" >         
+</div>
+<label>תשובה נכונה</label>
+  <div class="ui-inputgroup">
+    
+    <span class="ui-inputgroup-addon"><i class="fa fa-check-square-o"></i></span>
+    <input required minlength="2"  type="text" pInputText placeholder="תשובה נכונה" [(ngModel)]="myQuestion.trueAnswer">         
+</div>
+<label>תשובה שגויה1</label>
+  <div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-close"></i></span>
+    <input required minlength="2" type="text" pInputText placeholder="תשובה שגויה1" [(ngModel)]="myQuestion.falseAnswer1">         
+</div>
+<label>תשובה שגויה2</label>
+  <div class="ui-inputgroup">
+    
+    <span class="ui-inputgroup-addon"><i class="fa fa-close"></i></span>
+    <input type="text" pInputText placeholder="תשובה שגויה2" [(ngModel)]="myQuestion.falseAnswer2">         
+</div>
+
+<label>תשובה שגויה3</label>
+  <div class="ui-inputgroup">
+    
+    <span class="ui-inputgroup-addon"><i class="fa fa-close"></i></span>
+    <input type="text" pInputText placeholder="תשובה שגויה3" [(ngModel)]="myQuestion.falseAnswer3">         
+</div>
+<label>ניקוד לשאלה</label><br>
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-diamond"></i></span>
+<input type="number" min="1" [(ngModel)]="pointAnswer"><br>
+</div><br>
+<label style="padding-right: 30%">
+<button  pButton type="button" (click)="saveQuestion()" label="שמור"> </button>
+<button pButton type="button" (click)="saveQuestionAndNext()"label="שמור והוסף" ></button>
+</label>
+</div>
+</div>
